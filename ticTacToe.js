@@ -16,63 +16,68 @@
 // 0 if it's a cat's game (i.e. a draw).
 // You may assume that the board passed in is valid in the context of a game of Tic-Tac-Toe.
 
-function isSolved(matrix = []) {
-    const isOneRowWin = (matrix = [], value = 1) => {
-        for (let i = 0; i < matrix.length; i++) {
-            const isRowWin = matrix[i].every(rowItem => rowItem === value)
-            if (isRowWin) {
-                return true
-            }
-        }
-        return false
+export default function isSolved(matrix = []) {
+  const isOneRowWin = (matrix = [], value = 1) => {
+    for (let i = 0; i < matrix.length; i++) {
+      const isRowWin = matrix[i].every((rowItem) => rowItem === value)
+      if (isRowWin) {
+        return true
+      }
     }
-    const isObliquelyWin = (matrix = [], value = 1) => {
-        let result;
-        for (let i = 0; i < matrix.length; i++) {
-            const element = matrix[i][i]
-            if (result === undefined) {
-                result = element === value
-            } else {
-                result = result && (element === value)
-            }
-        }
-        return result
+    return false
+  }
+  const isObliquelyWin = (matrix = [], value = 1) => {
+    let result
+    for (let i = 0; i < matrix.length; i++) {
+      const element = matrix[i][i]
+      if (result === undefined) {
+        result = element === value
+      } else {
+        result = result && element === value
+      }
     }
-    const isBackObliquelyWin = (matrix = [], value = 1) => {
-        let result;
-        for(let i = 0; i < matrix.length; i++) {
-            const element = matrix[i][matrix.length - 1 - i]
-            if (result === undefined) {
-                result = element === value
-            } else {
-                result = result && (element === value)
-            }
-        }
-        return result
+    return result
+  }
+  const isBackObliquelyWin = (matrix = [], value = 1) => {
+    let result
+    for (let i = 0; i < matrix.length; i++) {
+      const element = matrix[i][matrix.length - 1 - i]
+      if (result === undefined) {
+        result = element === value
+      } else {
+        result = result && element === value
+      }
     }
-    const isThereAreEmptySpots = (matrix = []) => {
-        let result
-        for (let i = 0; i < matrix.length; i++) {
-            result = matrix[i].includes(0)
-            if (result) {
-                break
-            }
-        }
-        return result
+    return result
+  }
+  const isThereAreEmptySpots = (matrix = []) => {
+    let result
+    for (let i = 0; i < matrix.length; i++) {
+      result = matrix[i].includes(0)
+      if (result) {
+        break
+      }
     }
+    return result
+  }
 
-    const isXWin = isOneRowWin(matrix, 1) || isObliquelyWin(matrix, 1) || isBackObliquelyWin(matrix, 1)
-    if (isXWin) {
-        return 1
-    }
-    const isOWin = isOneRowWin(matrix, 2) || isObliquelyWin(matrix, 2) || isBackObliquelyWin(matrix, 2)
-    if (isOWin) {
-        return 2
-    }
-    if (isThereAreEmptySpots(matrix)) {
-        return -1
-    }
+  const isXWin =
+    isOneRowWin(matrix, 1) ||
+    isObliquelyWin(matrix, 1) ||
+    isBackObliquelyWin(matrix, 1)
+  if (isXWin) {
+    return 1
+  }
+  const isOWin =
+    isOneRowWin(matrix, 2) ||
+    isObliquelyWin(matrix, 2) ||
+    isBackObliquelyWin(matrix, 2)
+  if (isOWin) {
+    return 2
+  }
+  if (isThereAreEmptySpots(matrix)) {
+    return -1
+  }
 
-    return 0 
+  return 0
 }
-
